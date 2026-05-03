@@ -1542,16 +1542,40 @@
 		)
 	)
 	(junction
+		(at 130.81 93.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "040e2687-1ea6-401e-88ac-81aead6f0a97")
+	)
+	(junction
+		(at 100.33 93.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "08da5836-01f6-46a4-9688-ba0333e941d2")
+	)
+	(junction
 		(at 83.82 60.96)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "20961ec1-ad99-463d-a05c-1f908ee5db33")
 	)
 	(junction
+		(at 130.81 124.46)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "254d0318-705f-417c-8c5b-78bc2fdb17df")
+	)
+	(junction
 		(at 165.1 58.42)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "28c667e5-a87a-4fa9-a708-da28e21f1af5")
+	)
+	(junction
+		(at 120.65 124.46)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "374b9110-9bf2-4138-8d89-b6bc60112366")
 	)
 	(junction
 		(at 165.1 60.96)
@@ -1565,6 +1589,18 @@
 		(color 0 0 0 0)
 		(uuid "bed08228-62f9-4189-86d8-953aca971254")
 	)
+	(junction
+		(at 149.86 93.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f4659259-1e7b-4614-abea-6b1b6dbb96a4")
+	)
+	(junction
+		(at 120.65 93.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fc3f7e15-7ec7-4a73-98fb-6605319de78d")
+	)
 	(wire
 		(pts
 			(xy 83.82 55.88) (xy 83.82 58.42)
@@ -1574,6 +1610,16 @@
 			(type default)
 		)
 		(uuid "04624bf6-d38f-47d3-8ba5-2532a2b63aee")
+	)
+	(wire
+		(pts
+			(xy 91.44 93.98) (xy 100.33 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "08ab7609-d6af-40b9-b68e-0627edbc006f")
 	)
 	(wire
 		(pts
@@ -1587,6 +1633,16 @@
 	)
 	(wire
 		(pts
+			(xy 100.33 114.3) (xy 115.57 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c91001b-0e5b-4388-9f7b-6c69644f0a05")
+	)
+	(wire
+		(pts
 			(xy 83.82 63.5) (xy 81.28 63.5)
 		)
 		(stroke
@@ -1597,13 +1653,23 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 114.3) (xy 115.57 114.3)
+			(xy 100.33 114.3) (xy 100.33 113.03)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "19619f79-21a0-436b-addb-84040c75441d")
+		(uuid "30afa160-18a5-49ac-a0f3-47308bb8a14b")
+	)
+	(wire
+		(pts
+			(xy 149.86 93.98) (xy 158.75 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31536f28-6f18-433c-a124-d624df3d7c37")
 	)
 	(wire
 		(pts
@@ -1627,13 +1693,83 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 114.3) (xy 106.68 114.3)
+			(xy 149.86 93.98) (xy 149.86 105.41)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "40d74c60-f517-4507-bad0-dbc3c0233448")
+		(uuid "58debf8f-38f5-413b-947c-80bf9216053d")
+	)
+	(wire
+		(pts
+			(xy 158.75 113.03) (xy 158.75 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "885bd110-2609-4283-a60d-dd2bfd25713f")
+	)
+	(wire
+		(pts
+			(xy 91.44 105.41) (xy 91.44 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f2682d0-f685-45cc-b718-0c84fd42c129")
+	)
+	(wire
+		(pts
+			(xy 149.86 114.3) (xy 149.86 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9856b62-aab4-49fb-b4f8-df5c2cb96af7")
+	)
+	(wire
+		(pts
+			(xy 91.44 124.46) (xy 120.65 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd63e602-df5c-4cb4-b219-c1035071b895")
+	)
+	(wire
+		(pts
+			(xy 100.33 93.98) (xy 100.33 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c307a696-5846-4127-ade3-3079485ee3f4")
+	)
+	(wire
+		(pts
+			(xy 100.33 93.98) (xy 120.65 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7625e10-65e4-40a2-8842-dd4e02d308d4")
+	)
+	(wire
+		(pts
+			(xy 130.81 93.98) (xy 149.86 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb3c6ff6-5a12-482f-a189-1820cace9be9")
 	)
 	(wire
 		(pts
@@ -1647,17 +1783,37 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 114.3) (xy 146.05 114.3)
+			(xy 158.75 124.46) (xy 130.81 124.46)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "dba60579-d183-4ab4-9571-622547b0061f")
+		(uuid "d3da323b-7c6a-4983-8ab7-5b6c090dc937")
 	)
 	(wire
 		(pts
-			(xy 135.89 114.3) (xy 137.16 114.3)
+			(xy 158.75 93.98) (xy 158.75 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dff6ac63-c450-49c8-889e-f9f95a368661")
+	)
+	(wire
+		(pts
+			(xy 91.44 124.46) (xy 91.44 113.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb667557-96d3-4def-a599-7c0b3446ac96")
+	)
+	(wire
+		(pts
+			(xy 135.89 114.3) (xy 149.86 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1877,161 +2033,6 @@
 	)
 	(symbol
 		(lib_id "power:GNDA")
-		(at 130.81 124.46 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "1394646f-bf40-4cac-be87-57328b3412d1")
-		(property "Reference" "#PWR030"
-			(at 130.81 130.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GNDA"
-			(at 130.81 128.778 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 130.81 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 130.81 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GNDA\" , analog ground"
-			(at 130.81 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c6bb0b14-9d2e-484c-b9ec-220d2eca637d")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR030")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VCCQ")
-		(at 170.18 104.14 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "174939f8-effa-4f44-98da-c00e5531fcd5")
-		(property "Reference" "#PWR032"
-			(at 170.18 107.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "VCCQ"
-			(at 170.18 99.06 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 170.18 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 170.18 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VCCQ\""
-			(at 170.18 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "bd62059d-cf82-4911-ab83-3e0fc0fe20f9")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR032")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GNDA")
 		(at 165.1 60.96 0)
 		(unit 1)
 		(body_style 1)
@@ -2109,85 +2110,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 82.55 111.76 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "33a605cb-0f73-4f49-8830-c52176e089e4")
-		(property "Reference" "#PWR026"
-			(at 82.55 118.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 82.55 116.078 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 82.55 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 82.55 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 82.55 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "0c4e2877-ebbd-42e2-860d-795eca325ea3")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR026")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
-		(at 110.49 114.3 90)
+		(at 100.33 109.22 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2197,7 +2121,7 @@
 		(dnp no)
 		(uuid "366bd06e-701a-4955-adff-e2af9716d8bc")
 		(property "Reference" "R19"
-			(at 110.49 116.332 90)
+			(at 103.505 110.617 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2207,7 +2131,7 @@
 			)
 		)
 		(property "Value" "4.7k"
-			(at 110.49 118.872 90)
+			(at 103.505 108.077 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2217,7 +2141,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 110.49 116.078 90)
+			(at 102.108 109.22 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2228,7 +2152,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 110.49 114.3 0)
+			(at 100.33 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2239,7 +2163,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 110.49 114.3 0)
+			(at 100.33 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2265,164 +2189,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:VCC")
-		(at 105.41 114.3 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "40a53df0-0925-4164-a655-985a12e28902")
-		(property "Reference" "#PWR024"
-			(at 109.22 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "VCC"
-			(at 101.6 114.2999 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 105.41 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 105.41 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 105.41 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8d867313-e068-44cc-acac-e3288e73c8a5")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR024")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 120.65 124.46 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "67c06ad0-5ea5-4943-aa6e-22b6f432577f")
-		(property "Reference" "#PWR025"
-			(at 120.65 130.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 120.65 128.778 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 120.65 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 120.65 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 120.65 124.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "53e9518d-5d07-41d9-95f1-5f33636ed7c8")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR025")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
-		(at 82.55 107.95 0)
+		(at 91.44 109.22 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2430,10 +2198,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6d4a9a77-a3d2-4fa3-9bbb-62f7ddf89ce6")
 		(property "Reference" "C9"
-			(at 86.36 106.6799 0)
+			(at 84.582 108.7119 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2444,7 +2211,7 @@
 			)
 		)
 		(property "Value" "100n"
-			(at 86.36 109.2199 0)
+			(at 84.582 111.2519 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2455,7 +2222,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 83.5152 111.76 0)
+			(at 92.4052 113.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2466,7 +2233,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 82.55 107.95 0)
+			(at 91.44 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2477,7 +2244,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 82.55 107.95 0)
+			(at 91.44 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2512,10 +2279,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "744e35a2-490a-4898-9cc9-388e25cf5ede")
 		(property "Reference" "U4"
-			(at 132.9533 91.44 0)
+			(at 134.4773 95.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2526,7 +2292,7 @@
 			)
 		)
 		(property "Value" "ISO6742"
-			(at 132.9533 93.98 0)
+			(at 134.2233 97.536 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2893,7 +2659,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TEA 1_TRP"
+		(property "Footprint" "Converter_DCDC:Converter_DCDC_TRACO_TEA1-xxxx_THT"
 			(at 83.82 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -2944,85 +2710,6 @@
 			(project "usb-instrument"
 				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
 					(reference "U8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VCCQ")
-		(at 146.05 114.3 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a10a3d36-cfd7-4bd2-aab6-4b394885ac90")
-		(property "Reference" "#PWR034"
-			(at 142.24 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "VCCQ"
-			(at 149.86 114.2999 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 146.05 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 146.05 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VCCQ\""
-			(at 146.05 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "839cb579-f4b3-4070-a63d-b03cbfe7ff50")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR034")
 					(unit 1)
 				)
 			)
@@ -3106,163 +2793,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GNDA")
-		(at 170.18 111.76 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "adcc1e4b-ab92-434e-907b-0bb3797f1c5e")
-		(property "Reference" "#PWR033"
-			(at 170.18 118.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GNDA"
-			(at 170.18 116.078 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 170.18 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 170.18 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GNDA\" , analog ground"
-			(at 170.18 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "59dbdcf4-96d7-40d5-bd93-479edbf3d3b4")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR033")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VCC")
-		(at 82.55 104.14 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c8de09c0-6ad0-4ba1-b37d-b516bacf7351")
-		(property "Reference" "#PWR023"
-			(at 82.55 107.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "VCC"
-			(at 82.55 99.06 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 82.55 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 82.55 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 82.55 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4d769284-52c8-4750-bd63-d635bb840f2c")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
-					(reference "#PWR023")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R")
-		(at 140.97 114.3 90)
+		(at 149.86 109.22 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3272,7 +2804,7 @@
 		(dnp no)
 		(uuid "cdd6b159-de37-41e1-8f25-1e5afb145198")
 		(property "Reference" "R18"
-			(at 140.97 116.332 90)
+			(at 151.892 109.22 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3282,7 +2814,7 @@
 			)
 		)
 		(property "Value" "4.7k"
-			(at 140.97 118.872 90)
+			(at 154.432 109.22 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3292,7 +2824,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 140.97 116.078 90)
+			(at 151.638 109.22 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3303,7 +2835,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 140.97 114.3 0)
+			(at 149.86 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3314,7 +2846,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 140.97 114.3 0)
+			(at 149.86 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3340,8 +2872,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 170.18 107.95 0)
+		(lib_id "power:GND")
+		(at 120.65 124.46 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3349,32 +2881,30 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fa7205d8-c1b8-4cb3-99df-a34ac0c1beef")
-		(property "Reference" "C10"
-			(at 173.99 106.6799 0)
+		(uuid "ed4c4341-d937-4046-a4a9-5153b053b5e1")
+		(property "Reference" "#PWR026"
+			(at 120.65 130.81 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "100n"
-			(at 173.99 109.2199 0)
+		(property "Value" "GND"
+			(at 120.65 128.778 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 171.1452 111.76 0)
+		(property "Footprint" ""
+			(at 120.65 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3385,7 +2915,164 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 170.18 107.95 0)
+			(at 120.65 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 120.65 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4979479b-dbd7-4b8a-a0a4-a9b516f650d9")
+		)
+		(instances
+			(project "usb-instrument"
+				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
+					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GNDA")
+		(at 130.81 124.46 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f8de6dde-616f-4449-817d-398bc2a44aeb")
+		(property "Reference" "#PWR023"
+			(at 130.81 130.81 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GNDA"
+			(at 130.81 129.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 130.81 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 130.81 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GNDA\" , analog ground"
+			(at 130.81 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "76d697dc-528f-470e-8715-4d755fab724a")
+		)
+		(instances
+			(project "usb-instrument"
+				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/67b96a3d-e8a5-4508-9df2-d1fbb42ec9ca"
+					(reference "#PWR023")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 158.75 109.22 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fa7205d8-c1b8-4cb3-99df-a34ac0c1beef")
+		(property "Reference" "C10"
+			(at 162.56 107.9499 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 162.56 110.4899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 159.7152 113.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 158.75 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3396,7 +3083,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 170.18 107.95 0)
+			(at 158.75 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
