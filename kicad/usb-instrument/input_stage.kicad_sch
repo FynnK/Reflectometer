@@ -1852,16 +1852,6 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 68.58) (xy 110.49 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "130a8531-c2e7-43eb-875c-83d4d44933ab")
-	)
-	(wire
-		(pts
 			(xy 260.35 62.23) (xy 223.52 62.23)
 		)
 		(stroke
@@ -1919,6 +1909,16 @@
 			(type default)
 		)
 		(uuid "2dc3e9ec-c294-4e36-a93e-11feb2d6067c")
+	)
+	(wire
+		(pts
+			(xy 101.6 68.58) (xy 110.49 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fb47115-23d6-4a9d-8e8c-19a96848e92f")
 	)
 	(wire
 		(pts
@@ -2069,6 +2069,16 @@
 			(type default)
 		)
 		(uuid "69546487-dc82-4482-b543-09bc7df95360")
+	)
+	(wire
+		(pts
+			(xy 109.22 45.72) (xy 110.49 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6baabc2f-e806-4179-aa29-fbf3de6e1d64")
 	)
 	(wire
 		(pts
@@ -2430,16 +2440,6 @@
 		)
 		(uuid "f64baa75-8a39-4eb7-91e2-cecd63a16090")
 	)
-	(wire
-		(pts
-			(xy 101.6 45.72) (xy 110.49 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f7e0617a-bfa2-4823-8a79-d710d55538cc")
-	)
 	(label "CLKIN"
 		(at 229.87 69.85 180)
 		(effects
@@ -2449,16 +2449,6 @@
 			(justify right bottom)
 		)
 		(uuid "0349e9bc-7bf8-4ba9-918d-95c2115fe310")
-	)
-	(label "V_PD"
-		(at 101.6 45.72 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "07017ef9-fe05-4096-b76c-1bfbc92392cd")
 	)
 	(label "AIN1P"
 		(at 124.46 68.58 180)
@@ -2499,6 +2489,26 @@
 			(justify right bottom)
 		)
 		(uuid "4b015bed-26d9-42a3-920f-aaab121e12be")
+	)
+	(label "DVDD"
+		(at 161.29 67.31 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4c533cd8-4984-4716-bcda-be0d9bc6b825")
+	)
+	(label "DVDD"
+		(at 156.21 77.47 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "611e2ed9-8903-48b3-8ace-ea5ec9cf02b6")
 	)
 	(label "V_PD"
 		(at 129.54 134.62 180)
@@ -2569,6 +2579,16 @@
 			(justify right bottom)
 		)
 		(uuid "9a954ee3-1346-49ce-9047-bd9c57a127d6")
+	)
+	(label "V_PD"
+		(at 101.6 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ab1fe48e-59dc-4c17-b857-03087b406b73")
 	)
 	(label "DVDD"
 		(at 46.99 26.67 180)
@@ -2660,16 +2680,16 @@
 		)
 		(uuid "fb8dad5d-ba1a-4313-961d-020e40fde869")
 	)
-	(hierarchical_label "SYNC{slash}RESET"
+	(hierarchical_label "R_SENSE"
 		(shape input)
-		(at 161.29 74.93 180)
+		(at 109.22 45.72 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right)
 		)
-		(uuid "0f007aa9-12fb-4709-be51-5958b9cb01c7")
+		(uuid "0153dff4-e5e6-43ae-94c3-f02819f41a46")
 	)
 	(hierarchical_label "DOUT"
 		(shape input)
@@ -2726,17 +2746,6 @@
 		)
 		(uuid "712fb89e-4d10-49f4-a09f-850307b0e726")
 	)
-	(hierarchical_label "R_SENSE"
-		(shape input)
-		(at 109.22 68.58 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9329f6ed-d8c2-444f-80a7-1a91ece3af7d")
-	)
 	(hierarchical_label "GNDA"
 		(shape input)
 		(at 52.07 67.31 180)
@@ -2747,6 +2756,17 @@
 			(justify right)
 		)
 		(uuid "990f19fb-a417-416b-951b-768862b2abe3")
+	)
+	(hierarchical_label "SYNC{slash}RESET"
+		(shape input)
+		(at 161.29 74.93 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d3c4fceb-d8db-4a7d-9ba9-37ce0b050368")
 	)
 	(hierarchical_label "DRDY"
 		(shape input)
@@ -3151,6 +3171,85 @@
 			(project "usb-instrument"
 				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/3bb653df-7c32-4163-b60c-aea8374e41b3"
 					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 161.29 71.12 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1a20d5be-76eb-45b2-9ee2-178647acd442")
+		(property "Reference" "R10"
+			(at 161.29 71.12 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 163.83 71.12 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 163.068 71.12 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 161.29 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 161.29 71.12 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "221806d7-6b52-4ab4-b398-d63c59be2a11")
+		)
+		(pin "2"
+			(uuid "53d21e5d-41de-4603-9483-3be7d05eae16")
+		)
+		(instances
+			(project "usb-instrument"
+				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/3bb653df-7c32-4163-b60c-aea8374e41b3"
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -5848,83 +5947,6 @@
 			(project "usb-instrument"
 				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/3bb653df-7c32-4163-b60c-aea8374e41b3"
 					(reference "#PWR017")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GNDA")
-		(at 156.21 77.47 270)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "f3239395-6773-407f-aab6-d06d9a0a809b")
-		(property "Reference" "#PWR062"
-			(at 149.86 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GNDA"
-			(at 150.876 77.47 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 156.21 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 156.21 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GNDA\" , analog ground"
-			(at 156.21 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "6621e76c-fa9b-46f4-b3aa-3307b2ac1ca3")
-		)
-		(instances
-			(project "usb-instrument"
-				(path "/e3f69e86-1123-464e-9947-982c7ad4894b/3bb653df-7c32-4163-b60c-aea8374e41b3"
-					(reference "#PWR062")
 					(unit 1)
 				)
 			)
