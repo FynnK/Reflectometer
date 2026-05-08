@@ -5,13 +5,13 @@
       "Application": "Pcbnew",
       "Version": "10.0.1"
     },
-    "CreationDate": "2026-05-08T16:25:17+02:00"
+    "CreationDate": "2026-05-08T16:58:20+02:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "usb-instrument",
       "GUID": "7573622d-696e-4737-9472-756d656e742e",
-      "Revision": "rev?"
+      "Revision": "0.1"
     },
     "Size": {
       "X": 100.05,
