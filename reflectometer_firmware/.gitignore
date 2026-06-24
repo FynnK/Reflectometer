@@ -1,0 +1,11 @@
+build/
+sdkconfig
+*.swp
+*.swo
+*~
+.DS_Store
+AGENTS.md
+.clangd
+.vscode/
+__pycache__/
+ads131m02.pdf
