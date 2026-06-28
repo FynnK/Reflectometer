@@ -18,16 +18,23 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Optical System - ESP32 Native Scale")
-        self.resize(1200, 800) # Höhe leicht erhöht für die Slider
+        self.setWindowTitle("Optical System - Dual Axis Plot")
+        self.resize(1200, 850)
 
         self.worker = None
         self.mode = "mock"
 
         self.max_points = 150
+        
+        # Deques für die Reflexionswerte (Linke Achse)
         self.r = deque(maxlen=self.max_points)
         self.g = deque(maxlen=self.max_points)
         self.b = deque(maxlen=self.max_points)
+
+        # Deques für die Stromwerte in mA (Rechte Achse)
+        self.curr_r = deque(maxlen=self.max_points)
+        self.curr_g = deque(maxlen=self.max_points)
+        self.curr_b = deque(maxlen=self.max_points)
 
         self.base_r = None
         self.base_g = None
@@ -45,9 +52,8 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
         root.setLayout(layout)
 
-        # TOP BAR (Verbindung & Modus)
+        # TOP BAR
         top = QHBoxLayout()
-
         self.mode_box = QComboBox()
         self.mode_box.addItems(["mock", "esp32"])
         self.mode_box.currentTextChanged.connect(self.set_mode)
@@ -70,12 +76,9 @@ class MainWindow(QMainWindow):
         top.addWidget(self.btn_start)
         top.addWidget(self.btn_calibrate)
         top.addWidget(self.status)
-
         layout.addLayout(top)
 
-        # ==========================================
-        # NEU: LED STEUERUNG (SLIDER)
-        # ==========================================
+        # LED STEUERUNG (SLIDER)
         led_layout = QHBoxLayout()
         led_layout.addWidget(QLabel("<b>LED-Intensität:</b>"))
 
@@ -108,13 +111,10 @@ class MainWindow(QMainWindow):
         self.lbl_val_b = QLabel("128")
         led_layout.addWidget(self.slider_b)
         led_layout.addWidget(self.lbl_val_b)
-
         layout.addLayout(led_layout)
-        # ==========================================
 
         # DASHBOARD
         dash = QHBoxLayout()
-
         self.big_score = QLabel("---")
         self.big_score.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.big_score.setStyleSheet("font-size: 48px; font-weight: bold;")
@@ -130,17 +130,74 @@ class MainWindow(QMainWindow):
         dash.addWidget(self.big_score)
         dash.addWidget(self.class_label)
         dash.addWidget(self.traffic)
-
         layout.addLayout(dash)
 
-        # PLOT CONFIGURATION
+        # ==========================================================
+        # PLOT KONFIGURATION MIT ZWEI Y-ACHSEN
+        # ==========================================================
         self.plot = pg.PlotWidget()
         self.plot.showGrid(x=True, y=True)
-        self.plot.setYRange(0.0, 2.0)
+        
+        # Linke Achse: Reflexion
+        self.plot.setYRange(0.0, 1.5)
+        self.plot.setLabel('left', 'Reflexion (Verhältniswert)', colors='#FFFFFF')
+        self.plot.setLabel('bottom', 'Messpunkte')
 
-        self.curve_r = self.plot.plot(pen="r")
-        self.curve_g = self.plot.plot(pen="g")
-        self.curve_b = self.plot.plot(pen="b")
+        plot_item = self.plot.plotItem
+
+        # Rechte Achse über die interne API erstellen
+        self.right_view = pg.ViewBox()
+        plot_item.scene().addItem(self.right_view)
+        
+        # Achsen-Item auf der rechten Seite registrieren
+        self.right_axis = plot_item.getAxis('right')
+        self.right_axis.linkToView(self.right_view)
+        plot_item.showAxis('right')
+        
+        # Verknüpft die X-Achse der rechten ViewBox mit der linken ViewBox
+        self.right_view.setXLink(plot_item.getViewBox())
+        self.plot.setLabel('right', 'LED-Strom (mA)', colors='#999999')
+
+        # Dynamische Skalierung der rechten Achsensicht bei Größenänderung
+        def update_views():
+            self.right_view.setGeometry(plot_item.getViewBox().sceneBoundingRect())
+            self.right_view.linkedViewChanged(plot_item.getViewBox(), self.right_view.XAxis)
+        
+        # Aufruf über .getViewBox() statt .viewBox gelöst
+        plot_item.getViewBox().sigResized.connect(update_views)
+
+        # Kurven für linke Achse (Reflexion - durchgezogen)
+        self.curve_r = self.plot.plot(pen=pg.mkPen('r', width=1.5))
+        self.curve_g = self.plot.plot(pen=pg.mkPen('g', width=1.5))
+        self.curve_b = self.plot.plot(pen=pg.mkPen('b', width=1.5))
+
+        # Kurven für rechte Achse (Strom mA - gepunktet)
+        self.curve_curr_r = pg.PlotCurveItem(pen=pg.mkPen((255, 50, 50), width=1.5, style=Qt.PenStyle.DotLine))
+        self.curve_curr_g = pg.PlotCurveItem(pen=pg.mkPen((50, 255, 50), width=1.5, style=Qt.PenStyle.DotLine))
+        self.curve_curr_b = pg.PlotCurveItem(pen=pg.mkPen((50, 50, 255), width=1.5, style=Qt.PenStyle.DotLine))
+        self.right_view.addItem(self.curve_curr_r)
+        self.right_view.addItem(self.curve_curr_g)
+        self.right_view.addItem(self.curve_curr_b)
+        
+        # Fester Bereich für die Stromwerte
+        self.right_view.setYRange(0.0, 30.0)
+
+        # BASELINE-LINIEN (Linke Achse, dünn & teiltransparent gestrichelt)
+        pen_base_r = pg.mkPen((255, 0, 0, 100), width=1.0, style=Qt.PenStyle.DashLine)
+        pen_base_g = pg.mkPen((0, 255, 0, 100), width=1.0, style=Qt.PenStyle.DashLine)
+        pen_base_b = pg.mkPen((0, 0, 255, 100), width=1.0, style=Qt.PenStyle.DashLine)
+
+        self.line_base_r = pg.InfiniteLine(angle=0, pen=pen_base_r)
+        self.line_base_g = pg.InfiniteLine(angle=0, pen=pen_base_g)
+        self.line_base_b = pg.InfiniteLine(angle=0, pen=pen_base_b)
+
+        self.line_base_r.hide()
+        self.line_base_g.hide()
+        self.line_base_b.hide()
+
+        self.plot.addItem(self.line_base_r)
+        self.plot.addItem(self.line_base_g)
+        self.plot.addItem(self.line_base_b)
 
         layout.addWidget(self.plot)
 
@@ -156,6 +213,10 @@ class MainWindow(QMainWindow):
             self.worker.stop()
             self.worker = None
             self.status.setText("Stopped")
+            self.line_base_r.hide()
+            self.line_base_g.hide()
+            self.line_base_b.hide()
+            self.baseline_ready = False
             return
 
         if self.mode == "mock":
@@ -168,14 +229,11 @@ class MainWindow(QMainWindow):
         self.worker.start()
         self.status.setText("Running")
 
-        # Synchronisiere aktuelle Slider-Werte direkt nach dem Start mit der Hardware
         self.send_led_intensity("R", self.slider_r.value())
         self.send_led_intensity("G", self.slider_g.value())
         self.send_led_intensity("B", self.slider_b.value())
 
-    # NEU: Sendefunktion für die LEDs
     def send_led_intensity(self, color, value):
-        # Update die Textanzeige neben dem Slider
         if color == "R":
             self.lbl_val_r.setText(str(value))
         elif color == "G":
@@ -183,19 +241,20 @@ class MainWindow(QMainWindow):
         elif color == "B":
             self.lbl_val_b.setText(str(value))
 
-        # Wenn die Verbindung aktiv ist, schicke den Befehl los
         if self.worker:
-            # Protokoll-Format: "SET_LED:R:255\n"
             cmd = f"SET_LED:{color}:{value}\n"
             self.worker.send(cmd)
 
-    def on_data(self, key, value):
+    def on_data(self, key, val_ref, val_mA):
         if key == "R":
-            self.r.append(value)
+            self.r.append(val_ref)
+            self.curr_r.append(val_mA)
         elif key == "G":
-            self.g.append(value)
+            self.g.append(val_ref)
+            self.curr_g.append(val_mA)
         elif key == "B":
-            self.b.append(value)
+            self.b.append(val_ref)
+            self.curr_b.append(val_mA)
 
     def capture_baseline(self):
         if len(self.r) < 20:
@@ -205,10 +264,17 @@ class MainWindow(QMainWindow):
         self.base_g = sum(list(self.g)[-20:]) / 20
         self.base_b = sum(list(self.b)[-20:]) / 20
 
+        self.line_base_r.setValue(self.base_r)
+        self.line_base_g.setValue(self.base_g)
+        self.line_base_b.setValue(self.base_b)
+
+        self.line_base_r.show()
+        self.line_base_g.show()
+        self.line_base_b.show()
+
         self.baseline_ready = True
         self.filtered_score = 0.0
         self.state_window.clear()
-
         self.status.setText("Calibrated")
 
     def compute_score(self, r, g, b):
@@ -234,21 +300,27 @@ class MainWindow(QMainWindow):
         if not (self.r and self.g and self.b):
             return
 
-        r = list(self.r)
-        g = list(self.g)
-        b = list(self.b)
+        # Linke Achse aktualisieren
+        self.curve_r.setData(list(self.r))
+        self.curve_g.setData(list(self.g))
+        self.curve_b.setData(list(self.b))
 
-        self.curve_r.setData(r)
-        self.curve_g.setData(g)
-        self.curve_b.setData(b)
+        # Rechte Achse aktualisieren
+        if self.curr_r and self.curr_g and self.curr_b:
+            self.curve_curr_r.setData(list(self.curr_r))
+            self.curve_curr_g.setData(list(self.curr_g))
+            self.curve_curr_b.setData(list(self.curr_b))
 
         if not self.baseline_ready:
             self.class_label.setText("WAITING")
             self.big_score.setText("---")
             self.traffic.setStyleSheet("color: gray; font-size: 80px;")
+            self.line_base_r.hide()
+            self.line_base_g.hide()
+            self.line_base_b.hide()
             return
 
-        score_raw = self.compute_score(r[-1], g[-1], b[-1])
+        score_raw = self.compute_score(list(self.r)[-1], list(self.g)[-1], list(self.b)[-1])
 
         self.filtered_score = (
             self.alpha * score_raw +
@@ -258,21 +330,13 @@ class MainWindow(QMainWindow):
         new_class, _ = self.classify(self.filtered_score)
         self.state_window.append(new_class)
 
-        stable_class = max(
-            set(self.state_window),
-            key=self.state_window.count
-        )
+        stable_class = max(set(self.state_window), key=self.state_window.count)
         self.stable_class = stable_class
 
         self.big_score.setText(f"{self.filtered_score:.1f}%")
         self.class_label.setText(self.stable_class)
 
-        color = {
-            "CLEAR": "green",
-            "SLIGHT": "yellow",
-            "DIRTY": "red"
-        }.get(self.stable_class, "gray")
-
+        color = {"CLEAR": "green", "SLIGHT": "yellow", "DIRTY": "red"}.get(self.stable_class, "gray")
         self.traffic.setStyleSheet(f"color: {color}; font-size: 80px;")
 
     def refresh_ports(self):

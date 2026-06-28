@@ -7,8 +7,8 @@ from PyQt6.QtCore import QObject, pyqtSignal
 
 
 class SerialWorker(QObject):
-    # ÄNDERUNG: Wir senden jetzt float statt int für die präzisen Sensorwerte
-    data_received = pyqtSignal(str, float)
+    # Sendet nun Key, Reflexionswert, mA-Wert
+    data_received = pyqtSignal(str, float, float)
 
     def __init__(self, port, baud=115200):
         super().__init__()
@@ -16,15 +16,15 @@ class SerialWorker(QObject):
         self.baud = baud
         self.running = False
 
-        # Regex matcht die ESP_LOGI-Zeile des ESP32
+        # Angepasste Regex fängt jetzt sowohl den Faktor als auch den mA-Wert ein
+        # Erwartet z.B.: "RED: 0.45 @ 12.5mA BLUE: 0.35 @ 14.2mA GREEN: 0.55 @ 11.1mA"
         self.log_regex = re.compile(
-            r"RED:\s*([\d\.]+)\s*@.*BLUE:\s*([\d\.]+)\s*@.*GREEN:\s*([\d\.]+)"
+            r"RED:\s*([\d\.]+)\s*@\s*([\d\.]+)mA.*BLUE:\s*([\d\.]+)\s*@\s*([\d\.]+)mA.*GREEN:\s*([\d\.]+)\s*@\s*([\d\.]+)mA"
         )
 
     def start(self):
         self.ser = serial.Serial(self.port, self.baud, timeout=1)
         self.running = True
-
         self.thread = threading.Thread(target=self.loop, daemon=True)
         self.thread.start()
 
@@ -34,8 +34,12 @@ class SerialWorker(QObject):
             self.ser.close()
 
     def send(self, msg):
-        if hasattr(self, "ser"):
-            self.ser.write(msg.encode())
+        if hasattr(self, "ser") and self.ser and self.ser.is_open:
+            try:
+                self.ser.write(msg.encode())
+                self.ser.flush()
+            except Exception as e:
+                print(f"Fehler beim Senden: {e}")
 
     def loop(self):
         while self.running:
@@ -46,23 +50,17 @@ class SerialWorker(QObject):
 
                 match = self.log_regex.search(line)
                 if match:
-                    # Werte direkt als originale Floats extrahieren (z.B. 0.45)
                     ref_red = float(match.group(1))
-                    ref_blue = float(match.group(2))
-                    ref_green = float(match.group(3))
+                    ma_red = float(match.group(2))
+                    
+                    ref_blue = float(match.group(3))
+                    ma_blue = float(match.group(4))
+                    
+                    ref_green = float(match.group(5))
+                    ma_green = float(match.group(6))
 
-                    # Direkt an die GUI weiterleiten
-                    self.data_received.emit("R", ref_red)
-                    self.data_received.emit("G", ref_green)
-                    self.data_received.emit("B", ref_blue)
-
+                    self.data_received.emit("R", ref_red, ma_red)
+                    self.data_received.emit("G", ref_green, ma_green)
+                    self.data_received.emit("B", ref_blue, ma_blue)
             except Exception:
                 pass
-
-    def send(self, msg):
-        if hasattr(self, "ser") and self.ser and self.ser.is_open:
-            try:
-                self.ser.write(msg.encode())
-                self.ser.flush() # Erzwingt das sofortige Senden der Daten
-            except Exception as e:
-                print(f"Fehler beim Senden: {e}")
