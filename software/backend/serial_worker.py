@@ -58,3 +58,11 @@ class SerialWorker(QObject):
 
             except Exception:
                 pass
+
+    def send(self, msg):
+        if hasattr(self, "ser") and self.ser and self.ser.is_open:
+            try:
+                self.ser.write(msg.encode())
+                self.ser.flush() # Erzwingt das sofortige Senden der Daten
+            except Exception as e:
+                print(f"Fehler beim Senden: {e}")

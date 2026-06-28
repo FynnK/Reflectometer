@@ -3,7 +3,7 @@
 from PyQt6.QtWidgets import (
     QMainWindow, QWidget,
     QVBoxLayout, QHBoxLayout,
-    QPushButton, QLabel, QComboBox
+    QPushButton, QLabel, QComboBox, QSlider
 )
 from PyQt6.QtCore import Qt, QTimer
 import pyqtgraph as pg
@@ -19,7 +19,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Optical System - ESP32 Native Scale")
-        self.resize(1200, 750)
+        self.resize(1200, 800) # Höhe leicht erhöht für die Slider
 
         self.worker = None
         self.mode = "mock"
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         layout = QVBoxLayout()
         root.setLayout(layout)
 
-        # TOP BAR
+        # TOP BAR (Verbindung & Modus)
         top = QHBoxLayout()
 
         self.mode_box = QComboBox()
@@ -73,6 +73,45 @@ class MainWindow(QMainWindow):
 
         layout.addLayout(top)
 
+        # ==========================================
+        # NEU: LED STEUERUNG (SLIDER)
+        # ==========================================
+        led_layout = QHBoxLayout()
+        led_layout.addWidget(QLabel("<b>LED-Intensität:</b>"))
+
+        # Roter Slider
+        led_layout.addWidget(QLabel("R:"))
+        self.slider_r = QSlider(Qt.Orientation.Horizontal)
+        self.slider_r.setRange(0, 255)
+        self.slider_r.setValue(128)
+        self.slider_r.valueChanged.connect(lambda val: self.send_led_intensity("R", val))
+        self.lbl_val_r = QLabel("128")
+        led_layout.addWidget(self.slider_r)
+        led_layout.addWidget(self.lbl_val_r)
+
+        # Grüner Slider
+        led_layout.addWidget(QLabel("G:"))
+        self.slider_g = QSlider(Qt.Orientation.Horizontal)
+        self.slider_g.setRange(0, 255)
+        self.slider_g.setValue(128)
+        self.slider_g.valueChanged.connect(lambda val: self.send_led_intensity("G", val))
+        self.lbl_val_g = QLabel("128")
+        led_layout.addWidget(self.slider_g)
+        led_layout.addWidget(self.lbl_val_g)
+
+        # Blauer Slider
+        led_layout.addWidget(QLabel("B:"))
+        self.slider_b = QSlider(Qt.Orientation.Horizontal)
+        self.slider_b.setRange(0, 255)
+        self.slider_b.setValue(128)
+        self.slider_b.valueChanged.connect(lambda val: self.send_led_intensity("B", val))
+        self.lbl_val_b = QLabel("128")
+        led_layout.addWidget(self.slider_b)
+        led_layout.addWidget(self.lbl_val_b)
+
+        layout.addLayout(led_layout)
+        # ==========================================
+
         # DASHBOARD
         dash = QHBoxLayout()
 
@@ -97,9 +136,6 @@ class MainWindow(QMainWindow):
         # PLOT CONFIGURATION
         self.plot = pg.PlotWidget()
         self.plot.showGrid(x=True, y=True)
-        
-        # ÄNDERUNG: Da der ESP32 Verhältnisse liefert, ändern wir das Y-Limit.
-        # 0.0 bis 2.0 deckt die meisten Reflexionskurven perfekt ab.
         self.plot.setYRange(0.0, 2.0)
 
         self.curve_r = self.plot.plot(pen="r")
@@ -132,6 +168,27 @@ class MainWindow(QMainWindow):
         self.worker.start()
         self.status.setText("Running")
 
+        # Synchronisiere aktuelle Slider-Werte direkt nach dem Start mit der Hardware
+        self.send_led_intensity("R", self.slider_r.value())
+        self.send_led_intensity("G", self.slider_g.value())
+        self.send_led_intensity("B", self.slider_b.value())
+
+    # NEU: Sendefunktion für die LEDs
+    def send_led_intensity(self, color, value):
+        # Update die Textanzeige neben dem Slider
+        if color == "R":
+            self.lbl_val_r.setText(str(value))
+        elif color == "G":
+            self.lbl_val_g.setText(str(value))
+        elif color == "B":
+            self.lbl_val_b.setText(str(value))
+
+        # Wenn die Verbindung aktiv ist, schicke den Befehl los
+        if self.worker:
+            # Protokoll-Format: "SET_LED:R:255\n"
+            cmd = f"SET_LED:{color}:{value}\n"
+            self.worker.send(cmd)
+
     def on_data(self, key, value):
         if key == "R":
             self.r.append(value)
@@ -154,26 +211,18 @@ class MainWindow(QMainWindow):
 
         self.status.setText("Calibrated")
 
-    # =========================
-    # NEUE SCORE-BERECHNUNG
-    # =========================
     def compute_score(self, r, g, b):
         if not self.baseline_ready:
             return 0.0
 
-        # Berechnet die relative Abweichung zum Kalibrierungs-Zustand.
-        # Wenn der aktuelle Wert stark von der Basislinie abweicht, steigt der Score.
         dr = abs(r - self.base_r) / (self.base_r if self.base_r != 0 else 1.0)
         dg = abs(g - self.base_g) / (self.base_g if self.base_g != 0 else 1.0)
         db = abs(b - self.base_b) / (self.base_b if self.base_b != 0 else 1.0)
 
-        # Durchschnittliche relative Abweichung in Prozent (Multiplikation mit 100)
-        # Ein Score von z.B. 15% bedeutet, dass sich die Werte im Schnitt um 15% verändert haben.
         diff_percentage = ((dr + dg + db) / 3.0) * 100.0
         return diff_percentage
 
     def classify(self, score):
-        # Die Schwellenwerte können je nach Empfindlichkeit eures Setups angepasst werden.
         if score < 5:
             return "CLEAR", "green"
         elif score < 15:
