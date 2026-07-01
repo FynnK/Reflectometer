@@ -1,24 +1,22 @@
 #include <cstdint>
 #include <stdio.h>
-#include <cstring>
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_log.h"
 #include "esp_err.h"
 
 #include "Ads131m02.hpp"
 #include "LedControl.hpp"
 #include "ClockGenerator.hpp"
+#include "SerialControl.hpp"
 
-static const char TAG[] = "main";
-
-const double ADC_FULL_SCALE = 8388608.0; // 2^23 for 24-bit ADC
-const double ADC_VREF = 1.2;             // 1.2V reference
-const double R_SENSE = 10.0;             // 10 Ohm sense resistor
+const double ADC_FULL_SCALE = 8388608.0;
+const double ADC_VREF = 1.2;
+const double R_SENSE = 10.0;
 
 Ads131m02 adc;
 LedControl leds;
+SerialControl serial;
 
 extern "C" void app_main(void) {
     // 1. Initialize Hardware Components
@@ -35,8 +33,8 @@ extern "C" void app_main(void) {
     adc.write_register(Ads131m02::REG_CLOCK, Ads131m02::CLOCK_CH0_EN | Ads131m02::CLOCK_CH1_EN | Ads131m02::CLOCK_OSR(Ads131m02::OSR_4096) | Ads131m02::CLOCK_PWR_HR);
 
     leds.begin();
+    serial.begin();
 
-    uint32_t intensity = 1000;
     int32_t ch0_offset;
     int32_t ch1_offset;
     uint8_t num_presamples = 80;
@@ -44,10 +42,8 @@ extern "C" void app_main(void) {
     double reflection[3] = {};
     double current[3] = {};
 
-
-    ESP_LOGI(TAG, "Starting synchronous pulse polling loop in main task...");
-
     while (1) {
+        serial.process_commands();
         for(int led = 0; led < 3; led++){
             // Resynchronize internal Sinc3 filters cleanly via SPI command
             adc.software_sync();
@@ -65,7 +61,7 @@ extern "C" void app_main(void) {
             ch1_offset = sum_ch1 / num_presamples;
 
             adc.software_sync();
-            leds.pulse(led, num_samples + 10, intensity);
+            leds.pulse(led, num_samples + 10, serial.brightness_for_led(led));
             for(int i = 0; i < 3; i++){
                 adc.sample();
             }
@@ -88,6 +84,6 @@ extern "C" void app_main(void) {
             //double ch1_voltage = (ch1_avg_counts / ADC_FULL_SCALE) * ADC_VREF;
         }
 
-        ESP_LOGI(TAG, "RED: %lf @ %.2f mA | BLUE: %lf @ %.2f mA | GREEN: %lf @ %.2f mA",reflection[0], current[0], reflection[1], current[1], reflection[2], current[2]);
+        serial.send_data(reflection, current);
     }
 }

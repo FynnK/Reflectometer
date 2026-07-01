@@ -14,7 +14,7 @@ public:
     static constexpr ledc_mode_t PWM_SPEED = LEDC_LOW_SPEED_MODE;
     static constexpr uint32_t PWM_FREQ_HZ = 1000;
     static constexpr ledc_timer_bit_t PWM_RES = LEDC_TIMER_14_BIT;
-    static constexpr uint32_t MAX_BRIGHTNESS = 5500;
+    static constexpr uint32_t MAX_BRIGHTNESS = 2000; //~35mA
 
     void begin() {
         gpio_config_t io_conf = {};
