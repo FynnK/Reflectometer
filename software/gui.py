@@ -425,6 +425,8 @@ class MainWindow(QMainWindow):
             )
             + "\n"
         )
+        if self.mon_cb.isChecked():
+            self.worker.send_monitor(enable=True)
 
     def send_led_intensity(self, color, value):
         pass
@@ -555,7 +557,7 @@ class MainWindow(QMainWindow):
     def on_data_raw(self, led, ch0, ch1, presamples):
         self.last_data_time = time.time()
         self._monitor_led = led
-        key = ["R", "G", "B"][led]
+        key = ["R", "B", "G"][led]
         ch0_ma = [v / ADC_FULL_SCALE * (ADC_VREF / R_SENSE) * 1000.0 for v in ch0]
         self.raw_data[led] = {
             "ch0": ch0,
@@ -595,7 +597,7 @@ class MainWindow(QMainWindow):
             self._single_shot_remaining -= 1
             if self._single_shot_remaining <= 0:
                 self._single_shot_pending = False
-                if self.worker:
+                if self.worker and not self.mon_cb.isChecked():
                     self.worker.send_monitor(enable=False)
 
     def on_connection_changed(self, connected):
@@ -711,6 +713,8 @@ class MainWindow(QMainWindow):
         else:
             self.monitor_plot.hide()
             self.monitor_label.hide()
+        if self.worker:
+            self.worker.send_monitor(enable=checked)
 
     def on_monitor_data(self, ch0, ch1):
         self.last_data_time = time.time()
@@ -749,20 +753,21 @@ class MainWindow(QMainWindow):
         ):
             return
         total = 0
-        for led in (0, 1, 2):
-            arr0 = self._monitor_cycle[led][0]
-            arr1 = self._monitor_cycle[led][1]
-            if not arr0:
+        order = sorted(self._monitor_cycle_seen)
+        for led in range(3):
+            if led not in self._monitor_cycle_seen:
                 self._cycle_curves[led][0].setData([], [])
                 self._cycle_curves[led][1].setData([], [])
-                continue
+        for led in order:
+            arr0 = self._monitor_cycle[led][0]
+            arr1 = self._monitor_cycle[led][1]
             n = len(arr0)
             xs = list(range(total, total + n))
             self._cycle_curves[led][0].setData(xs, arr0)
             self._cycle_curves[led][1].setData(xs, arr1)
             total += n
         self.monitor_label.setText(
-            f"Cycle — ch0 (colored), ch1 (gray) — {total} samples"
+            f"Cycle — {len(order)} LEDs, ch0 (colored), ch1 (gray) — {total} samples"
         )
         for led in range(3):
             self._monitor_cycle[led] = ([], [])

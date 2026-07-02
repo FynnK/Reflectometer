@@ -23,7 +23,6 @@ static void handle_cmd(const Command &cmd) {
 
     switch (cmd.type) {
         case Command::START: {
-            controller.stop_monitoring();
             Config cfg = controller.get_config();
             if (cmd.osr >= 0) cfg.osr = cmd.osr;
             if (cmd.presamples >= 1) cfg.presamples = cmd.presamples;
@@ -46,7 +45,6 @@ static void handle_cmd(const Command &cmd) {
             break;
         }
         case Command::STOP:
-            controller.stop_monitoring();
             controller.stop();
             leds.all_off();
             len = Protocol::format_status(buf, sizeof(buf), controller.get_status());

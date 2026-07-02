@@ -27,6 +27,11 @@ public:
         _state = MEASURING;
         _mode = mode;
         _current_in_selected = 0;
+        for (int i = 0; i < 3; i++) {
+            _raw_counts[i] = 0;
+            _dark_counts[i] = 0;
+            _light_counts[i] = 0;
+        }
     }
 
     void stop() {

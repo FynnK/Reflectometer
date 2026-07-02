@@ -36,6 +36,8 @@ class MockSerialWorker(QObject):
         self.ma_b = 16.5
         self.measuring = False
         self.mode = "continuous"
+        self._monitor_enabled = False
+        self._active_leds = [0, 1, 2]
 
     def start(self):
         self.timer.start(50)
@@ -56,14 +58,18 @@ class MockSerialWorker(QObject):
         if c == "start":
             self.mode = cmd.get("mode", "continuous")
             self.measuring = True
-            self.status_changed.emit("measuring")
+            status = "measuring"
             if "send_raw" in cmd:
                 self.config["send_raw"] = cmd["send_raw"]
+            if "channels" in cmd:
+                self.config["channels"] = cmd["channels"]
+                self._update_active_leds()
             if self.mode == "single":
                 self._single_shot()
+            self.status_changed.emit(status)
         elif c == "stop":
             self.measuring = False
-            self.status_changed.emit("idle")
+            self.status_changed.emit("monitoring" if self._monitor_enabled else "idle")
         elif c == "set":
             for k in (
                 "osr",
@@ -79,14 +85,17 @@ class MockSerialWorker(QObject):
             ):
                 if k in cmd:
                     self.config[k] = cmd[k]
+            if "channels" in cmd:
+                self._update_active_leds()
             self.config_received.emit(dict(self.config))
         elif c == "config":
             self.config_received.emit(dict(self.config))
         elif c == "monitor":
-            enabled = cmd.get("enable", False)
-            self.measuring = enabled
-            self.mode = "monitor" if enabled else "continuous"
-            self.status_changed.emit("monitoring" if enabled else "idle")
+            self._monitor_enabled = bool(cmd.get("enable", False))
+            if not self.measuring:
+                self.status_changed.emit(
+                    "monitoring" if self._monitor_enabled else "idle"
+                )
 
     def send_json(self, obj):
         self.send(json.dumps(obj) + "\n")
@@ -114,15 +123,21 @@ class MockSerialWorker(QObject):
     def send_monitor(self, enable=True):
         self.send_json({"cmd": "monitor", "enable": 1 if enable else 0})
 
+    def _update_active_leds(self):
+        ch = self.config.get("channels", 7)
+        self._active_leds = [i for i in range(3) if ch & (1 << i)]
+
     def generate(self):
-        if not self.measuring:
+        if not self.measuring and not self._monitor_enabled:
             return
-        if self.mode == "monitor":
+
+        if not self.measuring and self._monitor_enabled:
             ch0 = [random.randint(100_000, 8_000_000) for _ in range(20)]
             ch1 = [random.randint(100_000, 8_000_000) for _ in range(20)]
             self.monitor_received.emit(ch0, ch1)
             return
-        if self.mode != "continuous":
+
+        if self.mode == "single":
             return
 
         self.r = max(0.0, min(2.0, self.r + random.uniform(-0.01, 0.01)))
@@ -141,10 +156,12 @@ class MockSerialWorker(QObject):
             presamples = self.config.get("presamples", 80)
             samples = self.config.get("samples", 160)
             total = presamples + samples
-            for led in range(3):
+            for led in self._active_leds:
                 ch0 = [random.randint(100_000, 8_000_000) for _ in range(total)]
                 ch1 = [random.randint(100_000, 8_000_000) for _ in range(total)]
                 self.data_raw_received.emit(led, ch0, ch1, presamples)
+                if self._monitor_enabled:
+                    self.monitor_received.emit(ch0, ch1)
 
     def _single_shot(self):
         self.data_received.emit("R", self.r, self.ma_r)
@@ -154,7 +171,7 @@ class MockSerialWorker(QObject):
         presamples = self.config.get("presamples", 80)
         samples = self.config.get("samples", 160)
         total = presamples + samples
-        for led in range(3):
+        for led in self._active_leds:
             dark_ch0 = [random.randint(100_000, 8_000_000) for _ in range(presamples)]
             dark_ch1 = [random.randint(100_000, 8_000_000) for _ in range(presamples)]
             light_ch0 = [random.randint(100_000, 8_000_000) for _ in range(samples)]
@@ -162,6 +179,8 @@ class MockSerialWorker(QObject):
             all_ch0 = dark_ch0 + light_ch0
             all_ch1 = dark_ch1 + light_ch1
             self.data_raw_received.emit(led, all_ch0, all_ch1, presamples)
+            if self._monitor_enabled:
+                self.monitor_received.emit(all_ch0, all_ch1)
 
         self.measuring = False
-        self.status_changed.emit("idle")
+        self.status_changed.emit("monitoring" if self._monitor_enabled else "idle")
