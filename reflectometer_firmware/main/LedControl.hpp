@@ -41,7 +41,6 @@ public:
         chan_cfg.gpio_num = PWM_PIN;
         chan_cfg.speed_mode = PWM_SPEED;
         chan_cfg.channel = PWM_CHANNEL;
-        chan_cfg.intr_type = LEDC_INTR_DISABLE;
         chan_cfg.timer_sel = PWM_TIMER;
         chan_cfg.duty = 0;
         ledc_channel_config(&chan_cfg);
@@ -55,12 +54,16 @@ public:
     }
 
     void pulse(uint8_t led, uint32_t duration_ms, uint32_t brightness) {
+        pulse_us(led, (uint64_t)duration_ms * 1000, brightness);
+    }
+
+    void pulse_us(uint8_t led, uint64_t duration_us, uint32_t brightness) {
         if (led > 2) return;
         esp_timer_stop(_timers[led]);
         ledc_set_duty(PWM_SPEED, PWM_CHANNEL, brightness);
         ledc_update_duty(PWM_SPEED, PWM_CHANNEL);
         gpio_set_level(LED_PINS[led], 1);
-        esp_timer_start_once(_timers[led], duration_ms * 1000);
+        esp_timer_start_once(_timers[led], duration_us);
     }
 
     void off(uint8_t led) {
@@ -84,5 +87,7 @@ private:
     static void timer_cb(void* arg) {
         uint8_t led = (uint8_t)(intptr_t)arg;
         gpio_set_level(LED_PINS[led], 0);
+        ledc_set_duty(PWM_SPEED, PWM_CHANNEL, 0);
+        ledc_update_duty(PWM_SPEED, PWM_CHANNEL);
     }
 };

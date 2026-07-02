@@ -4,6 +4,8 @@
 #include "driver/gpio.h"
 #include "esp_log.h"
 #include "esp_err.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include <cstdint>
 #include <cstring>
 
@@ -254,28 +256,29 @@ public:
      */
     Sample sample() {
         uint8_t rx_frame[Ads131m02::FRAME_BYTES];
+        int polls = 0;
 
         while (true) {
             read_frame(rx_frame);
 
-            // Extract status word (first 3 bytes)
             uint32_t status = ((uint32_t)rx_frame[0] << 16) |
                               ((uint32_t)rx_frame[1] << 8)  |
                               rx_frame[2];
 
-            // Check if DRDY bits indicate fresh, updated conversion contents
             if (status & 0x000300) {
-                // Extract 24-bit raw channel data
                 int32_t ch0_raw = ((int32_t)rx_frame[3] << 16) | ((int32_t)rx_frame[4] << 8) | rx_frame[5];
                 int32_t ch1_raw = ((int32_t)rx_frame[6] << 16) | ((int32_t)rx_frame[7] << 8) | rx_frame[8];
 
-                // Sign-extend 24-bit negative numbers to 32-bit int32_t
                 if (ch0_raw & 0x00800000) ch0_raw |= 0xFF000000;
                 if (ch1_raw & 0x00800000) ch1_raw |= 0xFF000000;
 
-                // Optional: If you still need to log or save the status word elsewhere,
-                // you might want to modify the Sample class to hold it.
                 return Sample(ch0_raw, ch1_raw, esp_timer_get_time());
+            }
+
+            // Yield occasionally to avoid starving other tasks / watchdog
+            if (++polls > 200) {
+                taskYIELD();
+                polls = 0;
             }
         }
     }
